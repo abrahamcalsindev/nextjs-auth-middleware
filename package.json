@@ -1,0 +1,73 @@
+{
+  "name": "nextjs-auth-middleware",
+  "version": "0.1.5",
+  "private": false,
+  "description": "Nextjs-Auth-Middleware is a node.js package that provides middleware that can be used to add API Key authentications to secure an API route in Next.js.",
+  "keywords": [
+    "nextjs-auth-middleware",
+    "next-auth",
+    "nextjs"
+  ],
+  "homepage": "https://github.com/abrahamcalsin/nextjs-auth-middleware#readme",
+  "bugs": {
+    "url": "https://github.com/abrahamcalsin/nextjs-auth-middleware/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abrahamcalsin/nextjs-auth-middleware.git"
+  },
+  "license": "MIT",
+  "author": "abrahamcalsin",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "boot": "npm run clean && npm run build",
+    "typecheck": "tsc --noEmit",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "next": "^8.1.1-canary.54 || ^9.0.0 || ^10.0.0-0 || ^11.0.0 || ^12.0.0 || ^13.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "module": "dist/nextjs-auth-middleware.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/nextjs-auth-middleware.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/nextjs-auth-middleware.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.2",
+    "next": "^11.1.0",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.3"
+  }
+}
