@@ -1,0 +1,10 @@
+export const DEFAULT_HEADER_NAME = 'x-api-public-key' as const;
+export const LEGACY_HEADER_NAME = 'x-api-public-key' as const;
+export const AUTHORIZATION_HEADER = 'authorization' as const;
+export const BEARER_PREFIX = 'Bearer ' as const;
+export const DEFAULT_ALLOW_QUERY = true as const;
+export const DEFAULT_ENV_VAR = 'API_ROUTE_PUBLIC_KEY' as const;
+export const HTTP_BAD_REQUEST = 400 as const;
+export const HTTP_UNAUTHORIZED = 401 as const;
+export const MISSING_KEY_MESSAGE = 'The api public key is required' as const;
+export const INVALID_KEY_MESSAGE = 'You are not authorized to call this api' as const;
