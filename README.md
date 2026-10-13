@@ -4,44 +4,46 @@
 <a href="https://www.npmjs.com/package/nextjs-auth-middleware"><img src="https://img.shields.io/npm/dm/nextjs-auth-middleware?style=flat-square" alt="Downloads" /></a>
 <a href="https://github.com/abrahamcalsindev/nextjs-auth-middleware/blob/main/LICENSE"><img alt="npm" src="https://img.shields.io/github/license/abrahamcalsindev/react-github-fork-banner?style=flat-square" alt="License"></a>
 
-`Nextjs-Auth-Middleware` is a Node.js package that provides middleware for adding API key authentication to secure an API route in Next.js. This package is based on Next.js middleware, so I invite you to consult the [Next.js Middleware documentation](https://nextjs.org/docs/advanced-features/middleware).
+`Nextjs-Auth-Middleware` is a lightweight (~0.5 kB brotli, zero runtime deps) middleware for adding API key authentication to secure an API route in Next.js. Compatible with Next.js 12–16 (Pages Router `pages/api`).
 
 > pages/api/your-api.{ts,js}
 
 ## Installation
 
-It can be installed via npm, yarn, or pnpm by running one of the following commands:
-
-```powershell
-# Using npm
+```bash
 npm install --save nextjs-auth-middleware@latest
-
-# Using yarn
+# or
 yarn add nextjs-auth-middleware@latest
-
-# Using pnpm
+# or
 pnpm add nextjs-auth-middleware@latest
 ```
 
-## Usage
+Requires `node >=20.9.0` for development. `next` is an optional peer (`>=12 <17`).
 
-To use the middleware, import it into your `pages/api/your-api.{ts,js}` file and pass the request and response objects to it, along with an optional `processEnv` option to specify the name of the environment variable containing the API key. If the `processEnv` option is not provided, the default value of `API_ROUTE_PUBLIC_KEY` will be used.
+## Usage
 
 ```typescript
 import NextAuthMiddleware from 'nextjs-auth-middleware';
 
 async function handler(req, res) {
-  // Run the auth middleware
-  await NextAuthMiddleware(req, res, {
-    processEnv: process.env.API_ROUTE_KEY, // optional, default is API_ROUTE_PUBLIC_KEY
-  });
+  try {
+    await NextAuthMiddleware(req, res, {
+      processEnv: process.env.API_ROUTE_KEY, // optional, default is API_ROUTE_PUBLIC_KEY
+      // apiKey: process.env.API_ROUTE_KEY, // preferred alias, supports string[] for rotation
+      // headerName: 'x-api-key', // optional, default 'x-api-public-key'
+      // allowQuery: false, // optional, default true for backward compat
+    });
+  } catch {
+    return; // response already sent with 401
+  }
 
-  // Rest of the API logic
   res.json({ message: 'Hello NextJs Auth! 🚀' });
 }
+
+export default handler;
 ```
 
-Remember to set the appropriate environment variable (either the default or the one specified with the `processEnv` option) with the API key in order for the middleware to function properly.
+Also accepts `Authorization: Bearer <key>`. Key comparison uses a timing-safe compare.
 
 ## Keep in touch with me
 
